@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  TestStateMachine:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      StateMachineName: DefinitionS3LocationTest
+      DefinitionS3Location:
+        Bucket: y3-bucket-623960922091
+        Key: stepFunctionsTemplate.json
+      DefinitionSubstitutions:
+        SubstitutionsMessage: "World"
+      RoleArn: !GetAtt TestStateMachineRole.Arn
+
+  TestStateMachineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: DefinitionS3LocationTestRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - states.amazonaws.com
+            Action:
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSStepFunctionsFullAccess

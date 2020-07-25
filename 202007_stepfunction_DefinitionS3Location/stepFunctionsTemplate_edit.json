@@ -1,0 +1,21 @@
+{
+  "Comment": "A Hello World example of the Amazon States Language using Pass states",
+  "StartAt": "Hello",
+  "States": {
+    "Hello": {
+      "Type": "Pass",
+      "Result": "Hello",
+      "Next": "Wait_for_it"
+    },
+    "Wait_for_it": {
+      "Type": "Pass",
+      "Result": "Wait for it",
+      "Next": "Message"
+    },
+    "Message": {
+      "Type": "Pass",
+      "Result": "${SubstitutionsMessage}",
+      "End": true
+    }
+  }
+}
